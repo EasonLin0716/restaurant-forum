@@ -19,10 +19,14 @@
         <td>{{this.name}}</td>
         {{#if isAdmin}}
           <td>admin</td>
-          <td>set as user</td>
+          <form action="/admin/users/{{this.id}}?_method=PUT" method="POST">
+            <td><button class="btn btn-link p-0" type="submit" href="{{this.id}}?_method=PUT">set as user</button></td>
+          </form>
         {{else}}
           <td>user</td>
-          <td>set as admin</td>
+          <form action="/admin/users/{{this.id}}?_method=PUT" method="POST">
+            <td><button class="btn btn-link p-0" type="submit" href="{{this.id}}?_method=PUT">set as admin</button></td>
+          </form>
         {{/if}}
       </tr>
     {{/each}}
