@@ -20,7 +20,8 @@
         {{#if isAdmin}}
           <td>admin</td>
           <form action="/admin/users/{{this.id}}?_method=PUT" method="POST">
-            <td><button class="btn btn-link p-0" type="submit" href="{{this.id}}?_method=PUT">set as user</button></td>
+            <td><button class="btn btn-link p-0" type="submit" href="{{this.id}}?_method=PUT"
+                {{#ifEquals this.name "root"}}disabled{{/ifEquals}}>set as user</button></td>
           </form>
         {{else}}
           <td>user</td>
