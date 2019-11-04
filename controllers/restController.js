@@ -8,12 +8,12 @@ let restController = {
       const data = restaurants.map(r => ({
         // 展開餐廳資料
         ...r.dataValues,
-        description: r.dataValues.description.substring(0, 50)
+        description: `${r.dataValues.description.substring(0, 50)}...`
       }))
       return res.render('restaurants', {
         restaurants: data
       })
     })
-  }
+  },
 }
 module.exports = restController
