@@ -2,26 +2,42 @@
 const db = require('../models')
 const Restaurant = db.Restaurant
 const Category = db.Category
+const pageLimit = 10 // 每頁顯示幾筆資料
+
 let restController = {
   // 列出所有餐廳
   getRestaurants: (req, res) => {
+    let offset = 0 // 偏移量，從第 n+1 筆資料開始抓
     let whereQuery = {}
     let categoryId = ''
+    if (req.query.page) {
+      offset = (req.query.page - 1) * pageLimit
+    }
     if (req.query.categoryId) {
       categoryId = Number(req.query.categoryId)
-      whereQuery['CategoryId'] = categoryId
+      whereQuery['categoryId'] = categoryId
     }
-    Restaurant.findAll({ include: Category, where: whereQuery }).then(restaurants => {
-      const data = restaurants.map(r => ({
-        // 展開餐廳資料
+    Restaurant.findAndCountAll({ include: Category, where: whereQuery, offset: offset, limit: pageLimit }).then(result => { // result: 餐廳的資料筆數
+      // data for pagination
+      let page = Number(req.query.page) || 1 // 目前頁面 當req.query.page未傳入就是1
+      let pages = Math.ceil(result.count / pageLimit) // 頁數的最大值
+      let totalPage = Array.from({ length: pages }).map((item, index) => index + 1) // 產生顯示頁數用的陣列
+      let prev = page - 1 < 1 ? 1 : page - 1
+      let next = page + 1 > pages ? pages : page + 1
+      // clean up restaurant data
+      const data = result.rows.map(r => ({
         ...r.dataValues,
-        description: `${r.dataValues.description.substring(0, 50)}...`
+        description: r.dataValues.description.substring(0, 50)
       }))
-      Category.findAll().then(categories => { // 取出 categoies 
+      Category.findAll().then(categories => {
         return res.render('restaurants', {
           restaurants: data,
           categories,
-          categoryId
+          categoryId,
+          page,
+          totalPage,
+          prev,
+          next
         })
       })
     })
@@ -32,7 +48,7 @@ let restController = {
       include: Category
     }).then(restaurant => {
       return res.render('restaurant', {
-        restaurant: restaurant
+        restaurant
       })
     })
   }
