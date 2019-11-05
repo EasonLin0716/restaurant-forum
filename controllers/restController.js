@@ -1,5 +1,7 @@
 // 負責處理前台餐廳相關的 request
 const db = require('../models')
+const Comment = db.Comment
+const User = db.User
 const Restaurant = db.Restaurant
 const Category = db.Category
 const pageLimit = 10 // 每頁顯示幾筆資料
@@ -45,7 +47,10 @@ let restController = {
   // 列出單一餐廳
   getRestaurant: (req, res) => {
     return Restaurant.findByPk(req.params.id, {
-      include: Category
+      include: [
+        Category,
+        { model: Comment, include: [User] }
+      ]
     }).then(restaurant => {
       return res.render('restaurant', {
         restaurant
