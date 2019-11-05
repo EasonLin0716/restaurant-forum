@@ -17,7 +17,7 @@ let restController = {
     }
     if (req.query.categoryId) {
       categoryId = Number(req.query.categoryId)
-      whereQuery['categoryId'] = categoryId
+      whereQuery['CategoryId'] = categoryId
     }
     Restaurant.findAndCountAll({ include: Category, where: whereQuery, offset: offset, limit: pageLimit }).then(result => { // result: 餐廳的資料筆數
       // data for pagination
