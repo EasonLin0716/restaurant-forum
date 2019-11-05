@@ -92,9 +92,8 @@ const userController = {
     else
       return User.findByPk(req.params.id)
         .then((user) => {
-          restaurant.update({
+          user.update({
             name: req.body.name,
-            image: restaurant.image
           })
             .then((user) => {
               req.flash('success_messages', 'user was successfully to update')
