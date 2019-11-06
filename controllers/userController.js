@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt-nodejs')
 const db = require('../models')
 const User = db.User
+const Comment = db.Comment
+const Restaurant = db.Restaurant
 const fs = require('fs')
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
@@ -52,8 +54,22 @@ const userController = {
 
   getUser: (req, res) => {
     const currentUser = req.user.id // 驗證是否為當前使用者，決定給予 edit 連結與否
-    return User.findByPk(req.params.id).then(user => {
-      return res.render('user', { user, currentUser })
+    return User.findByPk(req.params.id, { include: [Comment] }).then(user => {
+      const commentAmount = user.dataValues.Comments.length // 評論筆數
+      const commentedRestaurant = [] // 被評論過的餐廳資料
+
+      user.dataValues.Comments.map( // 透過 Comment 中 RestaurantId 取得餐廳照片
+        data => Restaurant.findByPk(data.dataValues.RestaurantId)
+          .then(restaurant => {
+            const restaurantData = {}
+            restaurantData.id = restaurant.dataValues.id
+            restaurantData.name = restaurant.dataValues.name
+            restaurantData.image = restaurant.dataValues.image
+            commentedRestaurant.push(restaurantData)
+          })
+      )
+
+      return res.render('user', { user, currentUser, commentAmount, commentedRestaurant })
     })
   },
 
