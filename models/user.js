@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   User.associate = function (models) {
     User.hasMany(models.Comment)
-    User.belongsToMany(models.Restaurant, {
+    User.belongsToMany(models.Restaurant, { // 多對多關係
       through: models.Favorite,
       foreignKey: 'UserId',
       as: 'FavoritedRestaurants'
