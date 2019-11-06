@@ -32,7 +32,11 @@
             </a>
           </p>
           <span class="badge badge-secondary">{{this.Category.name}}</span>
-          <p class="card-text">{{this.description}}<a href="restaurants/{{this.id}}">Read more</a></p>
+          <p class="card-text">{{this.description}}...<a href="restaurants/{{this.id}}">Read more</a></p>
+          <form action="/favorite/{{this.id}}?_method=DELETE" method="POST"><button type="submit"
+              class="btn btn-danger">移除最愛</button></form>
+          <form action="/favorite/{{this.id}}" method="POST"><button type="submit" class="btn btn-primary">加到最愛</button>
+          </form>
         </div>
       </div>
     </div>
