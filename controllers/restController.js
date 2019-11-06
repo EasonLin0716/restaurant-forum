@@ -52,6 +52,7 @@ let restController = {
         { model: Comment, include: [User] }
       ]
     }).then(restaurant => {
+      restaurant.increment('viewCounts', { by: 1 })
       return res.render('restaurant', {
         restaurant
       })
@@ -78,6 +79,7 @@ let restController = {
   getDashboard: (req, res) => {
     return Restaurant.findByPk(req.params.id, { include: [Category, Comment] })
       .then(restaurant => {
+
         res.render('dashboard', { restaurant })
       })
   }
