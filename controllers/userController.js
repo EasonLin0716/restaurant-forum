@@ -72,7 +72,7 @@ const userController = {
       })
 
 
-      return res.render('user', { user, currentUser, commentAmount, commentedRestaurant })
+      return res.render('user/profile', { user, currentUser, commentAmount, commentedRestaurant })
     })
   },
 
@@ -81,7 +81,7 @@ const userController = {
     return User.findByPk(req.params.id).then(user => {
       // 若當前使用者不是本人，則導回首頁
       if (user.id !== currentUser) return res.redirect('/')
-      return res.render('editUser', { user, currentUser })
+      return res.render('user/edit', { user, currentUser })
     })
   },
 
