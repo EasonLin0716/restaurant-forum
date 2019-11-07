@@ -186,7 +186,8 @@ const userController = {
         isFollowed: req.user.Followings.map(d => d.id).includes(user.id)
       }))
       users = users.sort((a, b) => b.FollowerCount - a.FollowerCount)
-      return res.render('topUser', { users })
+      const currentUserId = req.user.dataValues.id
+      return res.render('topUser', { users, currentUserId })
     })
   },
 
