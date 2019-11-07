@@ -24,6 +24,7 @@
       <h2>{{this.name}}</h2>
       <span class="badge badge-secondary">追蹤人數：{{this.FollowerCount}}</span>
       <p>
+        {{!-- 檢查是否本人，若是就不給追蹤鈕 --}}
         {{#ifNotEquals this.id ../currentUserId}}
           {{#if this.isFollowed }}
             <form action="/following/{{this.id}}?_method=DELETE" method="POST" style="display: contents;"><button

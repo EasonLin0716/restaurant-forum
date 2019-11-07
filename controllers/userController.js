@@ -186,7 +186,7 @@ const userController = {
         isFollowed: req.user.Followings.map(d => d.id).includes(user.id)
       }))
       users = users.sort((a, b) => b.FollowerCount - a.FollowerCount)
-      const currentUserId = req.user.dataValues.id
+      const currentUserId = req.user.dataValues.id // 檢查是否本人，若是就不給追蹤鈕
       return res.render('topUser', { users, currentUserId })
     })
   },
