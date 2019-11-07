@@ -58,19 +58,27 @@ const userController = {
   getUser: (req, res) => {
     return User.findByPk(req.params.id, {
       include: [
-        Comment, { model: Comment, include: [Restaurant] }
+        Comment,
+        { model: Comment, include: [Restaurant] },
+        { model: User, as: 'Followers' },
+        { model: User, as: 'Followings' },
+        { model: Restaurant, as: 'FavoritedRestaurants' },
       ]
     }).then(user => {
       user = user.dataValues
-      user.commentAmount = user.Comments.length // 評論筆數
+      user.isFollowed = req.user.Followings.map(d => d.id).includes(user.id)
       const commentedRestaurant = [] // 被評論過的餐廳資料
-
       user.Comments.map(comment => {
         const restaurant = comment.dataValues.Restaurant // comment 取得的 restaurant
         commentedRestaurant.push(restaurant) // 取出需要的資訊並存入 commentedRestaurant
       })
-
-      return res.render('user/profile', { user, currentUser: req.user.id, commentedRestaurant })
+      console.log(user.Followings)
+      return res.render('user/profile',
+        {
+          user,
+          currentUserId: req.user.id,
+          commentedRestaurant
+        })
     })
   },
 
