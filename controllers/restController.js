@@ -90,6 +90,30 @@ let restController = {
 
         res.render('dashboard', { restaurant })
       })
+  },
+
+  getTopRestaurant: (req, res) => {
+    Restaurant.findAll({
+      include: [
+        { model: User, as: 'FavoritedUsers' }
+      ]
+    }).then(restaurants => {
+      restaurants = restaurants
+        .map(restaurant => ({
+          ...restaurant.dataValues,
+          FavoritedUsersCount: restaurant.FavoritedUsers.length,
+          isUserFavoritedRestaurants: req.user.FavoritedRestaurants.map(d => d.id).includes(restaurant.id)
+        }))
+        .sort((a, b) => b.FavoritedUsersCount - a.FavoritedUsersCount)
+
+      const topRestaurants = [] // 儲存前 10 個追蹤最多的餐廳
+      for (let i = 0; i < 10; i++) {
+        topRestaurants.push(restaurants[i])
+      }
+      console.log(topRestaurants)
+      return res.render('topRestaurant', { topRestaurants })
+    })
+
   }
 }
 module.exports = restController
