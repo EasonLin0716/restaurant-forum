@@ -32,7 +32,9 @@ passport.deserializeUser((id, cb) => {
     include: [
       // as 對應到我們在 model 裡設定的別名
       { model: Restaurant, as: 'FavoritedRestaurants' },
-      { model: Restaurant, as: 'LikedRestaurants' }
+      { model: Restaurant, as: 'LikedRestaurants' },
+      { model: User, as: 'Followers' },
+      { model: User, as: 'Followings' }
     ]
   }).then(user => {
     console.log(user)
