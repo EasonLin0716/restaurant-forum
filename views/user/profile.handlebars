@@ -5,7 +5,7 @@
   <div class="col-12 col-md-9">
     <h1>{{user.name}}</h1>
     <p>{{user.email}}</p>
-    <p><strong>{{user.Comments.length}}</strong> 已評論餐廳</p>
+    <p><strong>{{commentedRestaurant.length}}</strong> 已評論餐廳</p>
     <p><strong>{{user.FavoritedRestaurants.length}}</strong> 收藏的餐廳</p>
     <p><strong>{{user.Followings.length}}</strong> 位追蹤者</p>
     <p><strong>{{user.Followers.length}}</strong> 位追隨者</p>
@@ -40,7 +40,7 @@
   {{!-- 已評論餐廳 --}}
   <div class="col-8">
     <div class="card-header">
-      <h4><strong>{{user.Comments.length}}</strong> 則已評論餐廳</h4>
+      <h4><strong>{{commentedRestaurant.length}}</strong> 則已評論餐廳</h4>
     </div>
     <div class="card-body bg-white">
       {{#each commentedRestaurant}}
