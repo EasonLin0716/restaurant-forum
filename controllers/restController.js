@@ -110,7 +110,6 @@ let restController = {
       for (let i = 0; i < 10; i++) {
         topRestaurants.push(restaurants[i])
       }
-      console.log(topRestaurants)
       return res.render('topRestaurant', { topRestaurants })
     })
 

@@ -56,26 +56,21 @@ const userController = {
   },
 
   getUser: (req, res) => {
-    const currentUser = req.user.id // 驗證是否為當前使用者，決定給予 edit 連結與否
     return User.findByPk(req.params.id, {
       include: [
         Comment, { model: Comment, include: [Restaurant] }
       ]
     }).then(user => {
-      const commentAmount = user.dataValues.Comments.length // 評論筆數
+      user = user.dataValues
+      user.commentAmount = user.Comments.length // 評論筆數
       const commentedRestaurant = [] // 被評論過的餐廳資料
 
       user.Comments.map(comment => {
         const restaurant = comment.dataValues.Restaurant // comment 取得的 restaurant
-        const restaurantData = {} // 做出可以渲染至 view 的結構
-        restaurantData.id = restaurant.dataValues.id
-        restaurantData.name = restaurant.dataValues.name
-        restaurantData.image = restaurant.dataValues.image
-        commentedRestaurant.push(restaurantData) // 取出需要的資訊並存入 commentedRestaurant
+        commentedRestaurant.push(restaurant) // 取出需要的資訊並存入 commentedRestaurant
       })
 
-
-      return res.render('user/profile', { user, currentUser, commentAmount, commentedRestaurant })
+      return res.render('user/profile', { user, currentUser: req.user.id, commentedRestaurant })
     })
   },
 
