@@ -30,9 +30,12 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser((id, cb) => {
   User.findByPk(id, {
     include: [
-      { model: Restaurant, as: 'FavoritedRestaurants' }
+      // as 對應到我們在 model 裡設定的別名
+      { model: Restaurant, as: 'FavoritedRestaurants' },
+      { model: Restaurant, as: 'LikedRestaurants' }
     ]
   }).then(user => {
+    console.log(user)
     return cb(null, user)
   })
 })
