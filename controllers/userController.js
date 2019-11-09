@@ -106,6 +106,7 @@ const userController = {
     }
 
     const { file } = req
+    // 如果有上傳圖片
     if (file) {
       imgur.setClientID(IMGUR_CLIENT_ID);
       imgur.upload(file.path, (err, img) => {
@@ -123,11 +124,11 @@ const userController = {
       })
     }
     else
+      // 如果沒上傳圖片
       return User.findByPk(req.params.id)
         .then((user) => {
-          restaurant.update({
+          user.update({
             name: req.body.name,
-            image: restaurant.image
           })
             .then((user) => {
               req.flash('success_messages', 'user was successfully to update')
