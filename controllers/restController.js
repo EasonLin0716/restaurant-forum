@@ -106,8 +106,8 @@ let restController = {
         }))
         .sort((a, b) => b.FavoritedUsersCount - a.FavoritedUsersCount)
 
-      restaurants.splice(10) // Get first 10 restaurants
-      return res.render('topRestaurant', { restaurants })
+      const topRestaurants = restaurants.slice(0, 10)
+      return res.render('topRestaurant', { topRestaurants })
     })
 
   }
