@@ -172,18 +172,15 @@ const userController = {
   },
 
   removeLike: (req, res) => {
-    return Like.findOne({
+    const query = {
       where: {
         UserId: req.user.id,
         RestaurantId: req.params.restaurantId
       }
-    })
-      .then((like) => {
-        like.destroy()
-          .then((restaurant) => {
-            return res.redirect('back')
-          })
-      })
+    }
+    return Like.findOne(query)
+      .then(like => like.destroy())
+      .then(() => res.redirect('back'))
   },
 
   getTopUser: (req, res) => {
