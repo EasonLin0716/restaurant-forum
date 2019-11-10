@@ -68,18 +68,14 @@ const userController = {
       user = user.dataValues
       user.isFollowed = req.user.Followings.map(d => d.id).includes(user.id)
       const commentedRestaurant = [] // 被評論過的餐廳資料
-      const addedCommentedRestaurantId = [] // 儲存已評論的餐廳id
+      const addedId = new Set() // 儲存已評論的餐廳id
       user.Comments.map(comment => {
         // comment 取得的 restaurant
         const restaurant = comment.dataValues.Restaurant.dataValues
-
         // 如果餐廳已存在(被評論過就不會放進 commentedRestaurant )
-        if (!addedCommentedRestaurantId.includes(restaurant.id)) {
-          // 取出需要的資訊並存入 commentedRestaurant
-          commentedRestaurant.push(restaurant)
-          addedCommentedRestaurantId.push(restaurant.id)
-        }
-
+        if (addedId.has(restaurant.id)) return null
+        addedId.add(restaurant.id)
+        commentedRestaurant.push(restaurant)
       })
       return res.render('user/profile',
         {
