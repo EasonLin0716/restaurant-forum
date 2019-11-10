@@ -106,11 +106,8 @@ let restController = {
         }))
         .sort((a, b) => b.FavoritedUsersCount - a.FavoritedUsersCount)
 
-      const topRestaurants = [] // 儲存前 10 個追蹤最多的餐廳
-      for (let i = 0; i < 10; i++) {
-        topRestaurants.push(restaurants[i])
-      }
-      return res.render('topRestaurant', { topRestaurants })
+      restaurants.splice(10) // Get first 10 restaurants
+      return res.render('topRestaurant', { restaurants })
     })
 
   }
