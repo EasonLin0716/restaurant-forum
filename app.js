@@ -21,6 +21,7 @@ app.engine('handlebars', handlebars({
 app.set('view engine', 'handlebars')
 app.use('/upload', express.static(__dirname + '/upload'))
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use(methodOverride('_method'))
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(flash())
