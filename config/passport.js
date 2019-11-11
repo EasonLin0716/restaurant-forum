@@ -37,7 +37,6 @@ passport.deserializeUser((id, cb) => {
       { model: User, as: 'Followings' }
     ]
   }).then(user => {
-    console.log(user)
     return cb(null, user)
   })
 })

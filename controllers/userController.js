@@ -73,7 +73,7 @@ const userController = {
         // comment 取得的 restaurant
         const restaurant = comment.dataValues.Restaurant.dataValues
         // 如果餐廳已存在(被評論過就不會放進 commentedRestaurant )
-        if (addedId.has(restaurant.id)) return null
+        if (addedId.has(restaurant.id)) return;
         addedId.add(restaurant.id)
         commentedRestaurant.push(restaurant)
       })
