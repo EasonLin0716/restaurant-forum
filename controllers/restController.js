@@ -22,7 +22,7 @@ const restController = {
     })
   },
   getTopRestaurants: (req, res) => {
-    restService.getTopRestaurant(req, res, (data) => {
+    restService.getTopRestaurants(req, res, (data) => {
       return res.render('topRestaurant', data)
     })
   },
