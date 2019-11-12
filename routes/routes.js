@@ -33,15 +33,15 @@ router.get('/restaurants/top', authenticated, restController.getTopRestaurants) 
 router.get('/restaurants/:id', authenticated, restController.getRestaurant) // ok
 router.get('/restaurants/:id/dashboard', authenticated, restController.getDashboard) // ok
 
-router.post('/comments', authenticated, commentController.postComment)
-router.delete('/comments/:id', authenticatedAdmin, commentController.deleteComment)
+router.post('/comments', authenticated, commentController.postComment) // ok
+router.delete('/comments/:id', authenticatedAdmin, commentController.deleteComment) // ok
 
 router.post('/favorite/:restaurantId', authenticated, userController.addFavorite) // ok
 router.delete('/favorite/:restaurantId', authenticated, userController.removeFavorite) // ok
 router.post('/like/:restaurantId', authenticated, userController.addLike) // ok
 router.delete('/like/:restaurantId', authenticated, userController.removeLike) // ok
 
-router.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants'))
+router.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants')) // ok
 router.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants) // ok
 router.get('/admin/restaurants/create', authenticatedAdmin, adminController.createRestaurant)
 router.post('/admin/restaurants', authenticatedAdmin, upload.single('image'), adminController.postRestaurant) // ok
@@ -50,8 +50,8 @@ router.get('/admin/restaurants/:id/edit', authenticatedAdmin, adminController.ed
 router.put('/admin/restaurants/:id', authenticatedAdmin, upload.single('image'), adminController.putRestaurant) // ok
 router.delete('/admin/restaurants/:id', authenticatedAdmin, adminController.deleteRestaurant) // ok
 
-router.get('/admin/users', authenticatedAdmin, adminController.editUsers)
-router.put('/admin/users/:id', authenticatedAdmin, adminController.putUsers)
+router.get('/admin/users', authenticatedAdmin, adminController.editUsers) // ok
+router.put('/admin/users/:id', authenticatedAdmin, adminController.putUsers) // ok
 
 router.get('/admin/categories', authenticatedAdmin, categoryController.getCategories)
 router.post('/admin/categories', authenticatedAdmin, categoryController.postCategory)
@@ -59,11 +59,11 @@ router.get('/admin/categories/:id', authenticatedAdmin, categoryController.getCa
 router.put('/admin/categories/:id', authenticatedAdmin, categoryController.putCategory)
 router.delete('/admin/categories/:id', authenticatedAdmin, categoryController.deleteCategory)
 
-router.get('/signup', userController.signUpPage)
-router.post('/signup', userController.signUp)
+router.get('/signup', userController.signUpPage) // no need
+router.post('/signup', userController.signUp) // no need
 
-router.get('/signin', userController.signInPage)
-router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
+router.get('/signin', userController.signInPage) // no need
+router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn) // no need
 
 router.get('/users/top', authenticated, userController.getTopUser) // ok
 router.get('/users/:id', authenticated, userController.getUser) // ok
@@ -73,6 +73,6 @@ router.put('/users/:id', authenticated, upload.single('image'), userController.p
 router.post('/following/:userId', authenticated, userController.addFollowing) // ok
 router.delete('/following/:userId', authenticated, userController.removeFollowing) // ok
 
-router.get('/logout', userController.logout)
+router.get('/logout', userController.logout) // no need
 
 module.exports = router
