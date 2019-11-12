@@ -63,11 +63,6 @@ let userController = {
       return res.json(data)
     })
   },
-  editUser: (req, res) => {
-    userService.editUser(req, res, (data) => {
-      return res.json(data)
-    })
-  },
   putUser: (req, res) => {
     userService.putUser(req, res, (data) => {
       return res.json(data)
