@@ -26,12 +26,12 @@ const authenticatedAdmin = (req, res, next) => {
   res.redirect('/signin')
 }
 
-router.get('/', authenticated, (req, res) => res.redirect('/restaurants'))
-router.get('/restaurants', authenticated, restController.getRestaurants)
-router.get('/restaurants/feeds', authenticated, restController.getFeeds)
-router.get('/restaurants/top', authenticated, restController.getTopRestaurant)
-router.get('/restaurants/:id', authenticated, restController.getRestaurant)
-router.get('/restaurants/:id/dashboard', authenticated, restController.getDashboard)
+router.get('/', authenticated, (req, res) => res.redirect('/restaurants')) // ok
+router.get('/restaurants', authenticated, restController.getRestaurants) // ok
+router.get('/restaurants/feeds', authenticated, restController.getFeeds) // ok
+router.get('/restaurants/top', authenticated, restController.getTopRestaurants) // ok
+router.get('/restaurants/:id', authenticated, restController.getRestaurant) // ok
+router.get('/restaurants/:id/dashboard', authenticated, restController.getDashboard) // ok
 
 router.post('/comments', authenticated, commentController.postComment)
 router.delete('/comments/:id', authenticatedAdmin, commentController.deleteComment)
@@ -42,13 +42,13 @@ router.post('/like/:restaurantId', authenticated, userController.addLike)
 router.delete('/like/:restaurantId', authenticated, userController.removeLike)
 
 router.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants'))
-router.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)
+router.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants) // ok
 router.get('/admin/restaurants/create', authenticatedAdmin, adminController.createRestaurant)
-router.post('/admin/restaurants', authenticatedAdmin, upload.single('image'), adminController.postRestaurant)
-router.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
+router.post('/admin/restaurants', authenticatedAdmin, upload.single('image'), adminController.postRestaurant) // ok
+router.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant) // ok
 router.get('/admin/restaurants/:id/edit', authenticatedAdmin, adminController.editRestaurant)
-router.put('/admin/restaurants/:id', authenticatedAdmin, upload.single('image'), adminController.putRestaurant)
-router.delete('/admin/restaurants/:id', authenticatedAdmin, adminController.deleteRestaurant)
+router.put('/admin/restaurants/:id', authenticatedAdmin, upload.single('image'), adminController.putRestaurant) // ok
+router.delete('/admin/restaurants/:id', authenticatedAdmin, adminController.deleteRestaurant) // ok
 
 router.get('/admin/users', authenticatedAdmin, adminController.editUsers)
 router.put('/admin/users/:id', authenticatedAdmin, adminController.putUsers)
