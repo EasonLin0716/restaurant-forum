@@ -49,6 +49,7 @@ router.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRest
 router.get('/admin/restaurants/:id/edit', authenticatedAdmin, adminController.editRestaurant)
 router.put('/admin/restaurants/:id', authenticatedAdmin, upload.single('image'), adminController.putRestaurant)
 router.delete('/admin/restaurants/:id', authenticatedAdmin, adminController.deleteRestaurant)
+
 router.get('/admin/users', authenticatedAdmin, adminController.editUsers)
 router.put('/admin/users/:id', authenticatedAdmin, adminController.putUsers)
 
