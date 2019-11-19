@@ -2,3 +2,5 @@ node_modules/
 temp/
 upload/
 .env
+
+.nyc_output
