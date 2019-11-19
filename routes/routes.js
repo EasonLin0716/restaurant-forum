@@ -53,11 +53,11 @@ router.delete('/admin/restaurants/:id', authenticatedAdmin, adminController.dele
 router.get('/admin/users', authenticatedAdmin, adminController.editUsers) // ok
 router.put('/admin/users/:id', authenticatedAdmin, adminController.putUsers) // ok
 
-router.get('/admin/categories', authenticatedAdmin, categoryController.getCategories)
-router.post('/admin/categories', authenticatedAdmin, categoryController.postCategory)
+router.get('/admin/categories', authenticatedAdmin, categoryController.getCategories) // ok
+router.post('/admin/categories', authenticatedAdmin, categoryController.postCategory) // ok
 router.get('/admin/categories/:id', authenticatedAdmin, categoryController.getCategories)
-router.put('/admin/categories/:id', authenticatedAdmin, categoryController.putCategory)
-router.delete('/admin/categories/:id', authenticatedAdmin, categoryController.deleteCategory)
+router.put('/admin/categories/:id', authenticatedAdmin, categoryController.putCategory) // ok
+router.delete('/admin/categories/:id', authenticatedAdmin, categoryController.deleteCategory) // ok
 
 router.get('/signup', userController.signUpPage) // no need
 router.post('/signup', userController.signUp) // no need
