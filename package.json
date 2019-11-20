@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "mocha tests",
+    "test": "mocha tests --recursive --exit",
     "coverage": "nyc npm run test"
   },
   "keywords": [],

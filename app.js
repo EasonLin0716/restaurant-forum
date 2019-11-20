@@ -8,16 +8,18 @@ const methodOverride = require('method-override')
 const app = express()
 const port = process.env.PORT || 3000
 
-
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 const passport = require('./config/passport')
 
-app.engine('handlebars', handlebars({
-  defaultLayout: 'main',
-  helpers: require('./config/handlebars-helpers')
-}))
+app.engine(
+  'handlebars',
+  handlebars({
+    defaultLayout: 'main',
+    helpers: require('./config/handlebars-helpers')
+  })
+)
 app.set('view engine', 'handlebars')
 app.use('/upload', express.static(__dirname + '/upload'))
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -41,3 +43,5 @@ app.listen(port, () => {
 
 // 引入 routes 並將 app 傳進去，讓 routes 可以用 app 這個物件來指定路由
 require('./routes')(app)
+
+module.exports = app
